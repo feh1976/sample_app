@@ -34,20 +34,7 @@ describe UsersController do
       response.should have_selector("h1>img", :class => "gravatar")
     end
   end
-
-  describe "GET 'new'" do
-
-    it "should be successful" do
-      get 'new'
-      response.should be_success
-    end
-
-    it "should have the right title" do
-      get 'new'
-      response.should have_selector("title", :content => "Sign up")
-    end
-  end
-
+ 
   describe "GET 'new'" do
 
     it "should be successful" do
@@ -130,6 +117,12 @@ describe UsersController do
         post :create, :user => @attr
         flash[:success].should =~ /welcome to the sample app/i
       end
+
+      it "should sign the user in" do
+        post :create, :user => @attr
+        controller.should be_signed_in
+      end
+
 
     end
 
